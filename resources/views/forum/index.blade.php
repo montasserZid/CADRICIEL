@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Forum')
+@section('title', 'forum')
+@section('titleHeader', 'forum')
+
 
 @section('content')
 <div class="container">

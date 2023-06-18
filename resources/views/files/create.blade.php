@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Partager un fichier')
+@section('title', trans('lang.share_file'))
+@section('titleHeader', trans('lang.share_file'))
 
 @section('content')
     <div class="container">

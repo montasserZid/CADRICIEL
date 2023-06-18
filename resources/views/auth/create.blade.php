@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title', 'Ajouter un Utilisateur')
-@section('titleHeader', 'Ajouter un Utilisateur')
+@section('title', trans('lang.add_etudiant'))
+@section('titleHeader', 'add_etudiant')
 @section('content')
 <a href="/"><svg fill="#000000" height="80px" width="80px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" 
     xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 219.151 219.151" xml:space="preserve">

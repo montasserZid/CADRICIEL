@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Répertoire des fichiers')
+@section('title', trans('lang.file_directory'))
+@section('titleHeader', trans('lang.file_directory'))
 
 @section('content')
     <div class="container">

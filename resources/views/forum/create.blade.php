@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Créer un article')
+@section('title', trans('lang.create_article'))
 
 @section('content')
     <div class="container">

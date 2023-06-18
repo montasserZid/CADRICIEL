@@ -60,6 +60,10 @@ return [
     "author" => "Author",
     // Répertoire des fichiers
     "file_directory" => "File directory",
+    // Créer un article
+    "create_article" => "Create an article",
+    //Partager un fichier
+    "share_file" => "Share a file",
 
     
 
