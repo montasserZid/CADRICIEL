@@ -2,11 +2,13 @@
 @section('title', 'Page Home')
 
 @section('content')
+
+
     <div class="container">
         <div class="text-center mt-5">
-            <h1>La liste des étudiants inscrits</h1>
-            <p class="lead">voici une liste des étudiants inscrits</p>
-                 <a href="{{ route('blog.create', ) }}" class="btn btn-primary">Ajouter un étudiant</a>
+            <h1>@lang('lang.title1')</h1>
+            <p class="lead">@lang('lang.title2')</p>
+                 <a href="{{ route('blog.create', ) }}" class="btn btn-primary">@lang('lang.add_etudiant')</a>
             @if(session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
@@ -18,10 +20,10 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Nom</th>
+                    <th>@lang('lang.name')</th>
                     <!-- <th>Adresse</th>
                     <th>Téléphone</th> -->
-                    <th>Email</th>
+                    <th>@lang('lang.email')</th>
                     <!-- <th>Date de naissance</th> -->
                     <th>Actions</th>
                 </tr>
@@ -37,16 +39,28 @@
                     <td>{{ $etudiant->email }}</td>
                     <!-- <td>{{ $etudiant->date_de_naissance }}</td> -->
                     <td>
-                    <a href="{{ route('blog.edit', ['etudiant' => $etudiant->id]) }}">Modifier</a>  &nbsp
+                    @auth
+                        @if($etudiant->id === auth()->user()->etudiant_id)
+                        <button onclick="location.href='{{ route('blog.edit', ['etudiant' => $etudiant->id]) }}'" class="btn btn-warning{{ $etudiant->id !== auth()->user()->etudiant_id ? ' disabled' : '' }}">@lang('lang.edit_etudiant')</button>&nbsp;
+
+                    @else
+                    <button href="#" class="btn btn-warning" disabled="disabled" onclick="return false;">@lang('lang.edit_etudiant')</button>&nbsp;
+                    @endif  
+                    @endauth
                     <form method="POST" action="{{ route('etudiant.destroy', $etudiant->id) }}" class="d-inline">
-    @csrf
-    @method('DELETE')
-    <button type="submit" class="btn btn-link text-danger">Supprimer</button>
-</form>
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger" disabled>@lang('lang.delete_etudiant')</button>
+                    </form>
+
+
  
                 </td>
                 </tr>
                 @endforeach
+                <div class="pagination">
+                        {{ $etudiants->links() }}
+                    </div>
             </tbody>
         </table>
     </div>

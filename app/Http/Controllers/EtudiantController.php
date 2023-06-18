@@ -6,13 +6,18 @@ use Illuminate\Http\Request;
 use App\Models\Ville;
 use App\Models\Etudiant;
 
+use Carbon\Carbon;
+
 class EtudiantController extends Controller
 {
     
     public function index()
     {
         // Récupérer tous les étudiants depuis la base de données
-        $etudiants = Etudiant::all(); // Remplacez Etudiant par le nom de votre modèle d'étudiant
+        // $etudiants = Etudiant::all(); 
+        //paginate
+        // Passer les étudiants à la vue pour les afficher
+        $etudiants = Etudiant::paginate(10);
 
         return view('blog.home')->with('etudiants', $etudiants);
     }
@@ -27,15 +32,23 @@ class EtudiantController extends Controller
         
     }
 
-        public function store(Request $request)
+    public function store(Request $request)
     {
-        //return $request;
-
+        // ...
+    
         $newEtudiant = Etudiant::create($request->all());
-
-
+    
+        // Générer le mot de passe par défaut à partir de la date de naissance
+        $dob = Carbon::createFromFormat('Y-m-d', $request->input('date_de_naissance'));
+        $defaultPassword = $dob->format('dmY');
+    
+        // Créer un nouvel utilisateur associé à l'étudiant avec le mot de passe par défaut
+        $userController = new UserController();
+        $userController->generateDefaultPassword($newEtudiant, $defaultPassword);
+    
+        // ...
+    
         return redirect()->route('blog.home')->with('success', 'Étudiant ' . $newEtudiant->nom . ' ajouté avec succès.');
-        //return view ('blog.show', ['blogPost' => $newPost]);
     }
 
 public function show($etudiantId)
@@ -65,19 +78,23 @@ public function show($etudiantId)
     // }
     public function edit($id)
 {
+    $villes = Ville::all();
     $etudiant = Etudiant::findOrFail($id);
     // var_dump($etudiant);
-    return view('blog.edit', compact('etudiant'));
+    return view('blog.edit', compact('etudiant'))->with('villes', $villes);
 }
 
 
     public function update(Request $request, Etudiant $etudiant)
     {
 
-
+        
         $etudiant->update([
             'nom' => $request->nom,
-            'adresse' => $request->adresse
+            'adresse' => $request->adresse,
+            // 'date_de_naissance' => $request->date_de_naissance,
+            'phone' => $request->phone,
+            'ville_id' => $request->ville_id,
         ]);
         // Rediriger vers la liste des étudiants après la mise à jour
         return redirect(route('blog.edit', $etudiant))->with('success', 'Étudiant ' . $etudiant->nom . ' mis à jour avec succès.');

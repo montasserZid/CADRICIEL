@@ -34,8 +34,28 @@
                     <label for="adresse">Adresse</label>
                     <input type="text" name="adresse" id="adresse" value="{{ $etudiant->adresse }}" class="form-control">
                 </div>
-                <!-- Ajoutez les autres champs du formulaire -->
-
+                <div class="form-group">
+                    <label for="telephone">Téléphone</label>
+                    <input type="text" name="phone" id="phone" value="{{ $etudiant->phone }}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="courriel">Courriel</label>
+                    <input type="text" name="email" id="email" value="{{ $etudiant->email }}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="date_naissance">Date de naissance</label>
+                    <input type="text" name="date_naissance" id="date_naissance" value="{{ $etudiant->date_de_naissance }}" class="form-control">
+                </div>
+                <br>
+                <div class="form-group">
+                    <select id="ville_id" name="ville_id" class="form-control">
+                        @foreach($villes as $ville)
+                            <option value="{{ $ville->id }}">{{ $ville->nom }}</option>
+                        @endforeach
+                    </select>
+                </div>
+          
+                <hr>
                 <button type="submit" class="btn btn-primary">Modifier</button>
             </form>
         </div>
