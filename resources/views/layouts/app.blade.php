@@ -49,6 +49,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('forum.index') }}">forum</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('files.index') }}">@lang('lang.file')</a></li>
                     @else
+                    <li class="nav-item"><a class="nav-link" href="{{ route('user.index') }}">{{ __('lang.register_user') }}</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">{{ __('lang.login') }}</a></li>
                     @endif
 
